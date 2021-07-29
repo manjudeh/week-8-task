@@ -1,8 +1,13 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
+
 const User = require('../models/User');
+// console.log(joi)
 
 router.post('/signup', async (req,res) => {
+//input validation
+   
+   if(error) return res.status(400).send(error.details[0].message);
 try {
   let user = new User({
         firstName: req.body.firstName,
@@ -19,6 +24,8 @@ try {
     res.status(400).send(error);
     console.log(error);
 }
+
+router.post('/products')
 
 });
 
