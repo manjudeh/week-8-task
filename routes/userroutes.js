@@ -1,40 +1,26 @@
-const express = require('express');
+const express = require('express')
 const router = express.Router();
 const User = require('../models/User');
 
-
-
-
-
-// router.get('/api/users', (req, res) =>{
-//     res.send('hello to my world')
-// });
- 
-router.get("/signup", (req, res) => {
-    res.send("Working... now you need to signup")
-});
-
-router.post('/signup', async (req, res) => {
-    const user = new User({
-        name: req.body.name,
+router.post('/signup', async (req,res) => {
+try {
+  let user = new User({
+        firstName: req.body.firstName,
+        lastName:  req.body.lastName,
         email: req.body.email,
-        height: req.body.height
+        password: req.body.password
+
     });
 
-    try {
-         const savedUser = await user.save();
+    const savedUser = await user.save();
+    res.send(savedUser);
+    
+} catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+}
 
-        res.json(savedUser);        
-    } catch (err) {
-         res.status(400).send(err);
-        
-    };
 });
 
 
-
-
-
-
-
-module.exports = router;
+module.exports = router
