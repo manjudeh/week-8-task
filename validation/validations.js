@@ -1,5 +1,6 @@
 
-const Joi = require('joi');
+const Joi = require("joi");
+
 const signupValidation = (data) => {
 
 const schema =  {
@@ -13,7 +14,7 @@ const schema =  {
 };
 
 
-const loginValidaion = (data) => {
+const loginValidation = (data) => {
 
     const schema =  {
         email: Joi.string().min(6).required().email(),
@@ -24,4 +25,4 @@ const loginValidaion = (data) => {
     }
 
 module.exports.signupValidation = signupValidation;
-module.exports.loginValidaion = loginValidation;
+module.exports.loginValidation = loginValidation;
