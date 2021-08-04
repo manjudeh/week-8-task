@@ -20,6 +20,6 @@ const loginValidation = userData =>{
     return schema.validate(userData)
 }
 
-//validation schema for products
+
 
 module.exports = { signupValidation, loginValidation }

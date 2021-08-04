@@ -1,6 +1,41 @@
 const Product = require('../models/Product')
-const productValidation = require('../middlewares/validations')
+const productValidation = require('../middlewares/productValidation')
 
 const addProduct = async (req, res) =>{
 
+    //validate products info
+    const {error} = productValidation(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    const image = req.file == undefined ? 'No Image Uploaded for this Product' :
+    `http://localhost:4700/productImage/${req.file.filename}`
+
+    const product = new Product({
+         ...req.body.name,
+         user: req.user._id,
+         productImage: image
+         });
+
+    try{
+        const savedProduct = await product.save();
+        res.ststus(200).json({
+            msg: 'product added',
+            data: savedProduct
+        })
+
+    }catch (error){
+        res.status(400).send(error)
+    }
+
+}
+
+const getProducts = async (req, res) => {
+    const userId = req.user._id
+    try{
+        const myProducts = await Product.find({user:userId});
+        res.status(200).json
+
+    }catch(error){
+
+    }
 }

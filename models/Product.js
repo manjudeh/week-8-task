@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    numberInStock:{
+    noInStock:{
         type: Number,
         required: true
     },
