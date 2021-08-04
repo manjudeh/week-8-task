@@ -62,3 +62,48 @@ const getProduct = async (req,res) => {
 
     }
 }
+
+//to update a product info
+const updateProduct = async (req, res) =>{
+    let userId = req.user._id
+    const image = req.file == undefined ? 'No Image Uploaded for this Product' :
+    `http://localhost:4700/productImage/${req.file.filename}`
+
+    try{
+        const product = await Product.findOneAndUpdate({user: userId, _id: req.params.id},
+            {...req.dody, productImage: image},
+            {new: true})
+            if(!product) return res.status(400).send('product not found');
+            
+            const updatedProduct = await Product.save();
+            res.status(200).json({
+                msg: 'product info updated',
+                data: updatedProduct
+            })
+
+    }catch(error){
+        res.status(400).send(error)
+    }
+};
+
+// deleting a product
+const deleteProduct = async (req, res) =>{
+    let userId = req.user._id
+    try{
+    const product = await Product.findOneAndDelete({user: userId, _id: req.params.id})
+    if (!product) return res.status(400).send('product not found');
+    res.status(200).send(`The product with the id of ${req.params.id} has been deleted`);
+
+    }catch(error){
+        res.status(400).send(error)
+
+    }
+};
+
+module.exports = {
+    addProduct,
+    getProduct,
+    getProducts,
+    updateProduct,
+    deleteProduct
+}
