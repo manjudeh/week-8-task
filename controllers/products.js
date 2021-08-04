@@ -29,13 +29,36 @@ const addProduct = async (req, res) =>{
 
 }
 
+// users get the list of all his products
 const getProducts = async (req, res) => {
     const userId = req.user._id
     try{
         const myProducts = await Product.find({user:userId});
-        res.status(200).json
+        res.status(200).json({
+        data: myProduct
+    });
 
     }catch(error){
+        res.status(400).send(error)
+
+    }
+};
+
+// to look up a sinle product by its Id
+const getProduct = async (req,res) => {
+    let userId = req.user._id
+    try{
+        const singleProduct = await Product.findOne({user: userId, _id: req.params.id});
+        if(singleProduct){
+            res.status(200).json({
+                data: singleProduct
+            });
+        } else{
+            res.status(400).send('product not found')
+            
+        }
+    }catch(error){
+        res.send(error)
 
     }
 }
