@@ -12,7 +12,7 @@ const DB = require('./db')
 app.use(express.json());
 
 //import routes
- const authroute = require("./routes/userroutes");
+ const authroute = require("./controllers/users");
 
 //auth middleware
  app.use('/api', authroute);
