@@ -11,9 +11,11 @@ const DB = require('./db')
 app.use(express.json());
 
 //import routes
- const userroute = require("./routers/userroutes");
-
+ const userRoute = require("./routers/userroutes");
+const productRoute = require("./routers/productRoutes")
 //auth middleware
- app.use('/api', userroute);
+ app.use('/api', userRoute);
+
+ app.use('/api', productRoute);
  
 app.listen(port, () => console.log(`server running on ${port}`));

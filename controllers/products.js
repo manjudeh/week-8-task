@@ -106,4 +106,4 @@ module.exports = {
     getProducts,
     updateProduct,
     deleteProduct
-}
+};
